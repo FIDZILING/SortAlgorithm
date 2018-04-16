@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Cocktail Sort</title>
+</head>
+<body>
+    <h3>鸡尾酒排序</h3>
+    <p>原数组顺序是：6,5,4,8,1,9,7</p>
+    <p id="print">排序后数组顺序是：</p>
+    <button id="btn">click</button>
+    <button id="reset">reset</button>
+    <script type="text/javascript">
+        //鸡尾酒排序又名定向冒泡排序
+        //分类：内部比较排序
+        //数据结构：数组
+        //最差时间复杂度：O(n^2)
+        //最有时间复杂度：O(n)(这种情况是大部分已经排序)
+        //平均时间复杂度：O(n^2)
+        //所需辅助空间：O(1)
+        //稳定性：稳定
+
+    function swap(array,i,j){
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    function CocktailSort(array,n){
+        var left = 0;//左边界
+        var right = n - 1;//右边界
+        while(left < right)//判断条件为左右边界不相遇
+        {
+            for(var i = left;i < right;i++)//前半轮
+            {
+                if(array[i] > array[i+1])//>=则不稳定
+                {
+                    swap(array,i,i+1);
+                }
+            }
+            right--;//前半段完成了右边极大值的确定
+            for(var i = right;i > left;i--)//后半轮
+            {
+                if(array[i-1] > array[i]){
+                    swap(array,i-1,i);
+                }
+            }
+            left++;//后半段完成了左边极小值的确定
+        }
+    }
+
+    document.getElementById("btn").onclick = function(){
+        print();
+        document.getElementById("btn").setAttribute("disabled","disabled")
+    };
+    function print(){
+        var array = new Array(6,5,4,8,1,9,7);
+        var n = array.length;
+        CocktailSort(array,n);
+        for(var i = 0;i < n;i++){
+            document.getElementById("print").innerHTML += array[i];
+
+            if(i!=n-1)document.getElementById("print").innerHTML += ",";
+        }
+    }
+
+    document.getElementById("reset").onclick=function(){
+        location.replace(location.href);
+    };
+    </script>
+</body>
+</html>
