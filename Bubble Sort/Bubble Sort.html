@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bubble Sort</title>
+    
+</head>
+<body>
+    <h3>冒泡排序</h3>
+    <p>原数组顺序是：6,5,4,8,1,9,7</p>
+    <p id="print">排序后数组顺序是：</p>
+    <button id="btn">click</button>
+    <button id="reset">reset</button>
+    <script type="text/javascript">
+    //分类：内部比较排序
+    //数据结构：数组
+    //最差时间复杂度：O(n^2)
+    //最有时间复杂度：O(n)(这种情况是第一步直接完成)
+    //平均时间复杂度：O(n^2)
+    //所需辅助空间：O(1)
+    //稳定性：稳定
+
+    
+    
+    function swap(array,i,j){
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    function BubbleSort(array,n){
+        for(var j = 0;j < n - 1;j++){
+            for(var i = 0;i < n - 1 - j;i++){
+                if(array[i] > array[i+1])//>=则不稳定
+                {
+                    swap(array,i,i+1);
+                }
+            }
+        }
+    }
+
+    document.getElementById("btn").onclick=function(){
+        print();
+        document.getElementById("btn").setAttribute("disabled","disabled");
+    };
+    function print(){
+        var array = new Array(6,5,4,8,1,9,7);
+        var n = array.length;
+        BubbleSort(array,n);
+        for(var i = 0;i < n;i++){
+            document.getElementById("print").innerHTML += array[i];
+
+            if(i!=n-1)document.getElementById("print").innerHTML += ",";
+        }
+    }
+
+    document.getElementById("reset").onclick=function(){
+        location.replace(location.href);
+    };
+    </script>
+</body>
+</html>
