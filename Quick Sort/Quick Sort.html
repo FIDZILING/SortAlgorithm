@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Quick Sort</title>
+</head>
+<body>
+    <h3>快速排序</h3>
+    <p>原数组顺序是：6,5,4,8,1,9,7</p>
+    <p id="print">排序后数组顺序是：</p>
+    <button id="btn">click</button>
+    <button id="reset">reset</button>
+    <script type="text/javascript">
+    //分类：内部比较排序
+    //数据结构：数组
+    //最差时间复杂度：O(n^2)(选取的基准数是最大或者最小，导致只划分出一个分区)
+    //最有时间复杂度：O(nlogn)(选取的基准数是中位数，均匀划分两个区域)
+    //平均时间复杂度：O(nlogn)
+    //所需辅助空间：一般为O(logn)，最差为O(n)(取决于递归树的深度)
+    //稳定性：不稳定
+
+    
+    
+    function swap(array,i,j){
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    function Partition(array,left,right)//划分函数
+    {
+        var pivot = array[right];//以最后一个元素为基准
+        var tail = left - 1;//tail为小于基准的字数组的最后一个元素索引
+        for(var i = left;i < right;i++){
+            if(array[i] <= pivot){
+                swap(array,++tail,i);
+            }
+        }
+        //不稳定交换
+        swap(array,tail+1,right);//把基准放在前一个子数组的后边，剩下的子数组即为大于基准的子数组
+        return tail+1;
+    }
+
+    function QuickSort(array,left,right){
+        if(left >= right)return;
+        //基准索引
+        var pivot_index = Partition(array,left,right);
+         //迭代
+        QuickSort(array,left,pivot_index  - 1);
+        QuickSort(array,pivot_index + 1,right);
+    }
+
+    document.getElementById("btn").onclick=function(){
+        print();
+        document.getElementById("btn").setAttribute("disabled","disabled");
+    };
+    function print(){
+        var array = new Array(6,5,4,8,1,9,7);
+        var n = array.length;
+        QuickSort(array,0,n-1);
+        for(var i = 0;i < n;i++){
+            document.getElementById("print").innerHTML += array[i];
+            if(i!=n-1)document.getElementById("print").innerHTML += ",";   
+        }
+    }
+
+    document.getElementById("reset").onclick=function(){
+        location.replace(location.href);
+    };
+    </script>
+</body>
+</html>
