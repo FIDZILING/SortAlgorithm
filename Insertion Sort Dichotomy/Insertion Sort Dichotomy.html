@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Insertion Sort Dichotomy</title>
+</head>
+<body>
+    <h3>二分插入排序</h3>
+    <p>原数组顺序是：6,5,4,8,1,9,7</p>
+    <p id="print">排序后数组顺序是：</p>
+    <button id="btn">click</button>
+    <button id="reset">reset</button>
+    <script type="text/javascript">
+        /*
+            总数量n较大时，二分插入排序的比较次数比直接插入排序的最差情况好得多
+            但比直接插入排序的最好情况要差
+            初始时接近升序，则直接插入排序更优
+        */
+        //分类：内部比较排序
+        //数据结构：数组
+        //最差时间复杂度：O(n^2)
+        //最有时间复杂度：O(nlogn)
+        //平均时间复杂度：O(n^2)
+        //所需辅助空间：O(1)
+        //稳定性：稳定
+
+    function InsertionSortDichotomy(array,n){
+        for(var i = 1;i < n;i++){
+            var get = array[i];//获取一张牌
+            var left = 0;
+            var right = i - 1;
+            while(left<=right)//二分
+            {
+                var mid = Math.floor((left + right) / 2);
+                if(array[mid] > get){
+                    right = mid -1;
+                }
+                else{
+                    left = mid + 1;
+                }
+            }
+            for(var j = i - 1;j >= left;j--){
+                array[j+1]=array[j];
+            }
+            array[left]=get;
+        }
+    }
+
+    document.getElementById("btn").onclick = function(){
+        print();
+        document.getElementById("btn").setAttribute("disabled","disabled");
+    }
+    function print(){
+        var array = new Array(6,5,4,8,1,9,7);
+        var n = array.length;
+        InsertionSortDichotomy(array,n);
+        for(var i = 0;i < n;i++){
+            document.getElementById("print").innerHTML += array[i];
+
+            if(i!=n-1)document.getElementById("print").innerHTML += ",";
+        }
+    }
+
+    document.getElementById("reset").onclick=function(){
+        location.replace(location.href);
+    };
+    </script>
+</body>
+</html>
